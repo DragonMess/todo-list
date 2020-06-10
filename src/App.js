@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import './App.css'
+import Navigation from "./Navigation";
+import Task from "./Task";
+
+const dataTask = [
+  {
+    id: "a5236f86",
+    task: "Walk the dog",
+    completed: false
+  },
+  {
+    id: "a5236f87",
+    task: "Study React",
+    completed: false
+  },
+  {
+    id: "a5236f88",
+    task: "Make exercise",
+    completed: true
+  }
+]
 
 function App() {
+
+  const tasks = dataTask.map(taskData=>{
+    return (
+      <Task id = {taskData.id} task = {taskData.task} completed = {taskData.completed}
+      />
+    )
+    
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <main className="App">
+        <header className="App-header"> 
+        <h1>TODO LIST</h1>
+        </header>
+        <Navigation />
+        <section className = "tasks">
+          {tasks}
+        </section>
+      </main>
+    </>
   );
 }
 
