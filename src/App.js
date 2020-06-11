@@ -1,46 +1,57 @@
-import React from "react";
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
 import Navigation from "./Navigation";
 import Task from "./Task";
 
-const dataTask = [
+const initialDataTask = [
   {
-    id: "a5236f86",
+    id: "a5236f82",
     task: "Walk the dog",
-    completed: false
+    completed: false,
   },
   {
-    id: "a5236f87",
+    id: "a5236f81",
     task: "Study React",
-    completed: false
+    completed: false,
   },
   {
-    id: "a5236f88",
+    id: "a5236f80",
     task: "Make exercise",
-    completed: true
-  }
-]
+    completed: true,
+  },
+];
 
 function App() {
+  const [dataTask, setTasksData] = useState(initialDataTask);
 
-  const tasks = dataTask.map(taskData=>{
+  const tasks = dataTask.map((taskData) => {
     return (
-      <Task id = {taskData.id} task = {taskData.task} completed = {taskData.completed}
+      <Task
+        id={taskData.id}
+        task={taskData.task}
+        completed={taskData.completed}
       />
-    )
-    
+    );
   });
+  const idRandom = dataTask.length;
+  
+  const addNewTask = (texTask) => {
+    const newTask = {
+      id: `a5236f8${idRandom}`,
+      task: texTask,
+      completed: false,
+    };
+    setTasksData([newTask,... dataTask]);
+  };
 
   return (
     <>
       <main className="App">
-        <header className="App-header"> 
-        <h1>TODO LIST</h1>
+        <header className="App-header" >
+          <h1>TODO LIST</h1>
         </header>
-        <Navigation />
-        <section className = "tasks">
-          {tasks}
-        </section>
+        <Navigation addNewTask = {addNewTask}/>
+        <section className="tasks">{tasks}</section>
       </main>
     </>
   );
