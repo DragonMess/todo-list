@@ -1,31 +1,54 @@
 import React,{useState} from 'react';
 import './Task.css';
 
-function Task(props) {
-    const {id, task,completed } = props;
+const Task = ({id, task,completed , index, editTask, deleteTask}) => {
 
     const [editTxtTask, setTxtTask] = useState(task);
+    const [readOnlyTaskTxt, setReadOnlyTaskTxt ] = useState(true);
+   
+    const [isHidden, setHidden] = useState(true);
 
-    const editTask = (event) => {
-        setTxtTask(event.target.value)
+
+    const submitDeleteTask = (event) => {
+        event.preventDefault();
+        deleteTask(id);
+
+    }
+
+    const submitEditTask = (event) => {
+
+        event.preventDefault();
+        setHidden(!isHidden);
+        setReadOnlyTaskTxt(false);
+
         
     }
-    const submitEditTask = (event) => {
+
+    const submitEditTaskOk = (event) => {
         event.preventDefault();
-        editTask(props.Task)
-        setTxtTask()
+        if(editTxtTask) {
+            setTxtTask(editTxtTask);
+            setHidden(!isHidden);
+            setReadOnlyTaskTxt(true);
+        }else{
+            alert("the field cannot be null")
+        }
+
+        // setTxtTask(editTxtTask)
     }
 
     return(
         <div className = "container-task">
             <form className = "task">
-                <input className = "checkbox" type ="checkbox" name = "task-chk"/>
+                <input className = "checkbox" type ="checkbox" onChange = {event => setTxtTask(event.target.value)} name = "task-chk"/>
                 {/* <input type="text" desable="false" onChange = {editTask} value = {props.task}/> */}
-                <h4 className = "task-txt" htmlFor = "task1">{props.task}</h4>
-                <input type="text" name = "task-txt" onChange = {event => setTxtTask(event.target.value)} value = {editTxtTask} />
+                {/* <input className = {isHidden ? "task-txt" : "hidden"} htmlFor = "task1" value ={props.task} /> */}
+                <input className = {isHidden ? "task-txt-edt" : "complete"} id={index} type="text" readOnly={readOnlyTaskTxt} onChange = {event => setTxtTask(event.target.value)}
+                value = {editTxtTask}/>
                 <div className = "btns">
-                    <button className = "edit-btn" onClick = {submitEditTask} >Edit</button>
-                    <button className = "delete-btn">Delete</button>
+                    <button className = {isHidden ? "edit-btn" : "hidden"}  onClick = {submitEditTask} >Edit</button>
+                    <button className = {isHidden ? "delete-btn" : "hidden"} onClick = {submitDeleteTask}>Delete</button>
+                    <button className = {isHidden ? "hidden" : "ok-btn"} onClick = {submitEditTaskOk}>Ok</button>
                 </div>
 
             </form>
