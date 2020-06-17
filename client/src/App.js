@@ -25,10 +25,23 @@ function App() {
   const [dataTask, setTasksData] = useState(initialDataTask);
 
   const deleteTask = (taskId) => {
-    // console.log()
     //updater le state avec toutes les tasks sauf celle avec taskId
-
     const newDataTask = dataTask.filter((taskObj) => taskObj.id !== taskId);
+    setTasksData(newDataTask);
+  };
+
+  const completedTask = (completedTask, taskId) => {
+    // Loop through all the tasks of taskData. if the id === taskId, change task content
+    // if the id !== taskId => leave without change
+    const newDataTask = dataTask.map((taskObj) => {
+      if (taskObj.id === taskId) {
+        taskObj.completed = completedTask;
+        return taskObj;
+      } else {
+        return taskObj;
+      }
+    });
+    // update the state
     setTasksData(newDataTask);
   };
 
@@ -43,7 +56,6 @@ function App() {
         return taskObj;
       }
     });
-
     // update the state
     setTasksData(newDataTask);
   };
@@ -58,12 +70,12 @@ function App() {
         completed={taskData.completed}
         deleteTask={deleteTask}
         editTask={editTask}
+        completedTask={completedTask}
       />
     );
   });
 
   const addNewTask = (texTask) => {
-    // const idRandom = dataTask.length;
     const idRandom = Math.random().toString(36).substring(2, 8);
 
     const newTask = {
@@ -71,7 +83,6 @@ function App() {
       task: texTask,
       completed: false,
     };
-    console.log(newTask);
     setTasksData([newTask, ...dataTask]);
   };
 

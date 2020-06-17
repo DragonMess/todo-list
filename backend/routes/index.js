@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+// const app = require("../app.js");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// const router = express.Router();
 
-module.exports = router;
+// const db = require("./db.js");
+// db.connect();
+
+// const todosRouter = require("./routes/todos");
+// const usersRouter = require("./routes/users");
+
+// app.use("/todos", todosRouter(db));
+// app.use("/users", usersRouter(db));
+
+// app.get("/todos", function (req, res) {
+//   res.send("GET request to the homepage");
+// });
