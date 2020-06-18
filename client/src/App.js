@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Navigation from "./Navigation";
 import Task from "./Task";
+import axios from "axios";
 
 const initialDataTask = [
   {
@@ -22,6 +23,17 @@ const initialDataTask = [
 ];
 
 function App() {
+  const url = "http://localhost:3002/todos";
+
+  axios({
+    method: "post",
+    url: `${url}/task`,
+    data: {
+      task: "hacer algo",
+      completed: "false",
+    },
+  });
+
   const [dataTask, setTasksData] = useState(initialDataTask);
 
   const deleteTask = (taskId) => {

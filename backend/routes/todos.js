@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   // get id from params
   let userValues = [req.params.id];
-  console.log(userValues);
+
   //
   let queryString = `SELECT * FROM tasks WHERE id = $1;`;
   db.query(queryString, userValues)
@@ -21,16 +21,16 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/task", (req, res) => {
+  // get obj with req.body
   const userObj = req.body;
-  console.log(userObj);
+  // Asign array of values to use in queryString
   const userValues = [userObj.task, userObj.completed];
-  console.log(userValues);
+
   let queryString = `INSERT INTO tasks (task,completed)
   VALUES ($1::text,$2::boolean) RETURNING *;`;
-  console.log(queryString);
+
   db.query(queryString, userValues)
     .then((dbRes) => {
-      console.log(dbRes);
       dbRes.rows[0];
       res.json(dbRes);
     })
@@ -39,14 +39,11 @@ router.post("/task", (req, res) => {
 
 router.put("/task", (req, res) => {
   const userObj = req.body;
-  console.log(userObj);
   const userValues = [userObj.id, userObj.task, userObj.completed];
-  console.log(userValues);
   let queryString = `UPDATE tasks SET task = $2, completed = $3
   WHERE id = $1 RETURNING *;`;
   db.query(queryString, userValues)
     .then((dbRes) => {
-      console.log(dbRes);
       dbRes.rows[0];
       res.json(dbRes);
     })
@@ -55,14 +52,11 @@ router.put("/task", (req, res) => {
 
 router.delete("/task", (req, res) => {
   const userObj = req.body;
-  console.log(userObj);
   const userValues = [userObj.id];
-  console.log(userValues);
   let queryString = `Delete FROM tasks
   WHERE id = $1 RETURNING *;`;
   db.query(queryString, userValues)
     .then((dbRes) => {
-      console.log(dbRes);
       dbRes.rows[0];
       res.json(dbRes);
     })
