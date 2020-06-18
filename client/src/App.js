@@ -23,16 +23,41 @@ const initialDataTask = [
 ];
 
 function App() {
-  const url = "http://localhost:3002/todos";
+  // const postSome = function () {
+  //   axios
+  //     .post(`/todos/task`, {
+  //       task: "hacer algo con los chiquis",
+  //       completed: "false",
+  //     })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
+  // postSome();
 
-  axios({
-    method: "post",
-    url: `${url}/task`,
-    data: {
-      task: "hacer algo",
-      completed: "false",
-    },
-  });
+  // var sadf = "http://regres.in/api/users";
+  // var jasonHolder = "http://jsonplaceholder.typicode.com/todos";
+
+  const url = "/todos";
+  function getTodos() {
+    axios
+      .get(url)
+      .then(function (response) {
+        // handle success
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+  }
+  getTodos();
 
   const [dataTask, setTasksData] = useState(initialDataTask);
 
