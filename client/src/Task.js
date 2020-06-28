@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import "./Task.css";
 
-const Task = ({
-  id,
-  task,
-  completed,
-  index,
-  editTask,
-  deleteTask,
-  completedTask,
-}) => {
+const Task = ({ id, task, completed, index, editTask, deleteTask }) => {
   const [editTxtTask, setTxtTask] = useState(task);
   const [readOnlyTaskTxt, setReadOnlyTaskTxt] = useState(true);
   const [isHidden, setHidden] = useState(true);
@@ -17,8 +9,10 @@ const Task = ({
 
   const handleCheckTask = (event) => {
     console.log(event.target.checked);
+    // set true or false
     setCompleted(!isCompleted);
-    completedTask(!isCompleted, id);
+    // call fct and send (true/false , id)
+    editTask(task, id, !isCompleted);
   };
   const submitDeleteTask = (event) => {
     event.preventDefault();
@@ -35,7 +29,7 @@ const Task = ({
     event.preventDefault();
     if (editTxtTask) {
       setTxtTask(editTxtTask);
-      editTask(editTxtTask, id);
+      editTask(editTxtTask, id, completed);
       setHidden(!isHidden);
       setReadOnlyTaskTxt(true);
     } else {

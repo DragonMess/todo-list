@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./Navigation.css";
+import "./NewTask.css";
 
-const Navigation = ({ addNewTask }) => {
+const NewTask = ({ addNewTask }) => {
   // const { addNewTask } = props;
   const [txtTask, setTxtTask] = useState("");
 
@@ -36,4 +36,4 @@ const Navigation = ({ addNewTask }) => {
   );
 };
 
-export default Navigation;
+export default NewTask;

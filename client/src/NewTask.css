@@ -1,0 +1,30 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5rem;
+  margin-left: 15px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #493267;
+  color: #7bb3ff;
+  font-size: 20px;
+}
+input {
+  background-color: #9e379f;
+  color: white;
+  margin-right: 15px;
+  font-size: large;
+}
+
+.add-btn {
+  background-color: #e86af0;
+  height: 30px;
+  color: #373854;
+  font-size: large;
+}
