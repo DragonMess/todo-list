@@ -11,6 +11,7 @@ db.connect();
 const dbHelpers = require("./helpers/dbHelpers.js")(db);
 
 const todosRouter = require("../backend/routes/todos");
+const { token } = require("morgan");
 
 var app = express();
 
@@ -25,8 +26,18 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routing
 app.use("/todos", todosRouter(dbHelpers));
 // app.use("/users", usersRouter);
+app.post("/login", (req, res) => {
+  // mock user
+  const user = {
+    name: "Bob",
+    email: "bob@gmail.com",
+  };
+  jwt.sign({ user: user }, "coffe hum", (err, token) => {
+    res.json({ token: token });
+  });
+});
 
-app.get("/", (req, res) => {
+app.get("/", verifyToken, (req, res) => {
   console.log(todosRouter);
   res.send("GET request to the homepage");
 });
