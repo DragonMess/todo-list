@@ -16,7 +16,7 @@ const NewTask = ({ addNewTask }) => {
   };
 
   return (
-    <div className="nav">
+    <div className="new">
       <form>
         <label htmlFor="newTask">Add a new Task</label>
         <br />

@@ -11,9 +11,9 @@
   width: 40%;
   margin-left: auto;
   margin-right: auto;
-  /* background-color: #493267;
-  color: #7bb3ff; */
-  display: none; /* Hidden by default */
+  background-color: #493267;
+  color: #7bb3ff;
+  /* display: none; Hidden by default */
   font-size: 20px;
 }
 input {

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import NewTask from "./NewTask";
 import Task from "./Task";
 import axios from "axios";
 import Login from "./Login";
+import Nav from "./Nav";
 
 const users = [
   { id: 1, email: "casa@gmail.com", password: "123" },
@@ -13,10 +15,35 @@ const users = [
 
 function App() {
   const [dataTask, setTasksData] = useState([]);
+  let [tokenLog, setToken] = useState("");
 
+  const login = (userLog) => {
+    const user = {
+      email: userLog.email,
+      password: userLog.password,
+    };
+    axios({
+      url: "/login",
+      method: "POST",
+      data: user,
+    })
+      .then((res) => {
+        // le backend doit te renvoyer le token
+        tokenLog = res.data.token;
+
+        setToken(tokenLog);
+        // token = res.data;
+      })
+      .catch((err) => console.log(err));
+  };
+  login({
+    email: "casa@gmail.com",
+    password: "camilo",
+  });
+  console.log("tokenLog", tokenLog);
   const getTodos = (url) => {
     axios
-      .get(url)
+      .get(url, { headers: { Authorization: `Bearer ${tokenLog}` } })
       .then((res) => setTasksData(res.data))
       .catch((error) => console.log(error));
   };
@@ -109,45 +136,48 @@ function App() {
   // separate into another function
   // findUserByEmail(email) => return the user object or false (Array.find)
 
-  const emailVerify = (emailTxt, passwordTxt) => {
-    let valid;
-    // const user = findUserByEmail(emailTxt)
-    // if (user && user.password===passwordTxt)
-    const someArray = users.map((item) => {
-      if (item.email === emailTxt && item.password === passwordTxt) {
-        return (valid = true);
-      } else {
-        return (valid = false);
-      }
-    });
-    return valid;
-  };
+  // const emailVerify = (emailTxt, passwordTxt) => {
+  //   let valid;
+  //   // const user = findUserByEmail(emailTxt)
+  //   // if (user && user.password===passwordTxt)
+  //   const someArray = users.map((item) => {
+  //     if (item.email === emailTxt && item.password === passwordTxt) {
+  //       return (valid = true);
+  //     } else {
+  //       return (valid = false);
+  //     }
+  //   });
+  //   return valid;
+  // };
 
-  const { isHide, setHide } = useState(false);
+  // const { isHide, setHide } = useState(false);
 
-  const submitLogin = (event) => {
-    event.preventDefault();
-    setHide(true);
-  };
+  // const submitLogin = (event) => {
+  //   event.preventDefault();
+  //   setHide(true);
+  // };
   return (
     <>
-      <main className="App">
-        <header className="App-header">
-          <h1>TODO LIST</h1>
-          <button
-            className={isHide ? "hideLog" : "login=btn"}
-            onClick={submitLogin}
-          >
-            Login
-          </button>
-        </header>
-        <Login
-          // emailVerify={emailVerify}
-          className={isHide ? "log" : "hideLog"}
-        />
-        <NewTask addNewTask={addNewTask} />
-        <section className="tasks">{tasks} </section>
-      </main>
+      <Router>
+        <Nav></Nav>
+        <Route path="/login" component={Login} />
+        <Route path="/todosLog" component={NewTask} />
+
+        <main className="App">
+          {/* <header className="App-header">
+            <h1>TODO LIST</h1>
+            <button
+              className={isHide ? "hideLog" : "login=btn"}
+              onClick={submitLogin}
+            >
+              Login
+            </button>
+          </header> */}
+
+          {/* <NewTask addNewTask={addNewTask} />
+          <section className="tasks">{tasks} </section> */}
+        </main>
+      </Router>
     </>
   );
 }
