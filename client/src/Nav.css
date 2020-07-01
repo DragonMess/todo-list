@@ -6,10 +6,13 @@
   background: #493267;
   color: white;
 }
-.nav-Links {
+ul {
   width: 40%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   list-style: none;
+}
+.navLi {
+  color: white;
 }

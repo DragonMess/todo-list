@@ -45,7 +45,7 @@ function verifyToken(req, res, next) {
   });
 }
 // Routing
-app.use("/todos", todosRouter(dbHelpers));
+app.use("/todos", verifyToken, todosRouter(dbHelpers));
 // app.use("/users", usersRouter);
 app.post("/login", (req, res) => {
   // mock user

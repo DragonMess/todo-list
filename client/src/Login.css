@@ -12,15 +12,38 @@
   margin-left: auto;
   margin-right: auto;
   background-color: #493267;
-  color: #7bb3ff;
+  color: white;
   /* display: none; Hidden by default */
   font-size: 20px;
 }
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding-right: 5px;
+  margin-top: 4px;
+}
+
+.inputs {
+  text-align: left;
+}
+.formH {
+  display: flex;
+  flex-direction: row;
+  max-width: 70%;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+}
 input {
-  background-color: #9e379f;
+  background-color: #701172b2;
   color: white;
   margin-right: 15px;
   font-size: large;
+}
+input::placeholder {
+  color: #7bb3ff;
 }
 
 .log-btn {
@@ -28,10 +51,12 @@ input {
   height: 30px;
   color: #373854;
   font-size: large;
+  margin-top: 5px;
 }
 .reg-btn {
   background-color: #7bb3ff;
   height: 30px;
   color: #373854;
   font-size: large;
+  margin-top: 5px;
 }
